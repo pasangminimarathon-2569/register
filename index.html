@@ -3,69 +3,177 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>กำลังนำท่านเข้าสู่ระบบ...</title>
+  <title>เข้าสู่ระบบกิจกรรม</title>
+
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Kanit', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      text-align: center;
-      padding: 40px 20px;
-      background: #f4f6f9;
-      color: #333;
+      background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      max-width: 400px;
-      margin: 0 auto;
+
+    .container {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
       position: relative;
+      text-align: center;
     }
-    .arrow-pointer {
-      font-size: 40px;
+
+    /* ภาพ Banner ด้านบน */
+    .banner-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .content-box {
+      padding: 24px 20px 30px;
+    }
+
+    /* สไตล์แจ้งเตือนฝั่ง iOS (iPhone) */
+    .ios-alert {
+      display: none;
+    }
+
+    .arrow-pointing {
       position: absolute;
-      top: -10px;
-      right: 15px;
-      animation: bounce 1s infinite alternate;
+      top: 12px;
+      right: 18px;
+      font-size: 32px;
+      color: #ff3b30;
+      animation: floatArrow 1s infinite alternate ease-in-out;
     }
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-10px); }
+
+    @keyframes floatArrow {
+      from { transform: translateY(0) scale(1); }
+      to { transform: translateY(-8px) scale(1.1); }
     }
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      background: #007AFF;
-      color: white;
-      border-radius: 8px;
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff3cd;
+      color: #856404;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .instruction-title {
+      font-size: 20px;
+      color: #1c1c1e;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .instruction-desc {
+      font-size: 15px;
+      color: #636366;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .highlight-text {
+      color: #007aff;
+      font-weight: 600;
+    }
+
+    /* ปุ่มกดหลัก */
+    .btn-main {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      background: #007aff;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 14px;
       text-decoration: none;
-      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-main:active {
+      transform: scale(0.98);
+    }
+
+    .footer-text {
       margin-top: 15px;
+      font-size: 12px;
+      color: #aeaeb2;
     }
   </style>
 </head>
 <body>
 
-  <!-- หน้าแสดงคำแนะนำเฉพาะ iOS (iPhone/iPad) บน Facebook App -->
-  <div class="card" id="ios-notice" style="display: none;">
-    <div class="arrow-pointer">↗️</div>
-    <h2 style="color: #007AFF; margin-top: 15px;">กรุณาเปิดใน Safari</h2>
-    <p>เนื่องจากระบบ Facebook บน iOS ไม่รองรับหน้าจอนี้</p>
-    <p style="font-size: 16px; font-weight: bold; color: #d9534f; line-height: 1.5;">
-      โปรดกดปุ่ม <b>...</b> ที่มุมขวาบนสุด<br>
-      แล้วเลือก <b>"เปิดใน Safari" (Open in Safari)</b>
-    </p>
-  </div>
+  <div class="container">
+    
+    <!-- รูปโปสเตอร์โปรโมท -->
+    <img src="https://lh3.googleusercontent.com/d/1V508uAq8yhI8tMphJIvORgkO4ev5Zfw6" alt="รูปโปรโมทกิจกรรม" class="banner-img">
 
-  <!-- หน้าโหลดปกติสำหรับ Android และเบราว์เซอร์ทั่วไป -->
-  <div class="card" id="normal-notice">
-    <h3>กำลังนำท่านเข้าสู่ระบบ...</h3>
-    <p>หากระบบไม่นำทางให้อัตโนมัติ กรุณากดปุ่มด้านล่าง</p>
-    <a id="app-link" href="#" class="btn">คลิกเข้าสู่ระบบที่นี่</a>
+    <div class="content-box">
+      
+      <!-- โหมดแจ้งเตือนสำหรับ iPhone / iPad บน Facebook -->
+      <div id="ios-notice" class="ios-alert">
+        <div class="arrow-pointing">↗️</div>
+        
+        <div class="step-badge">
+          <i class="fa-solid fa-triangle-exclamation"></i> ขั้นตอนสำคัญสำหรับ iPhone
+        </div>
+        
+        <h2 class="instruction-title">กรุณาเปิดใน Safari</h2>
+        <p class="instruction-desc">
+          เพื่อป้องกันหน้าต่างขาวและใช้งานได้อย่างสมบูรณ์<br>
+          โปรดกดปุ่ม <i class="fa-solid fa-ellipsis" style="color:#007aff;"></i> หรือ <b>...</b> ที่มุมขวาบนสุด<br>
+          แล้วเลือก <span class="highlight-text">"เปิดใน Safari"</span>
+        </p>
+      </div>
+
+      <!-- โหมดสำหรับ Android / เบราว์เซอร์ทั่วไป -->
+      <div id="normal-notice">
+        <h2 class="instruction-title" style="margin-top: 5px;">กำลังนำท่านเข้าสู่ระบบ...</h2>
+        <p class="instruction-desc">หากระบบไม่เปลี่ยนหน้าให้อัตโนมัติ กรุณากดปุ่มด้านล่าง</p>
+      </div>
+
+      <!-- ปุ่มเข้าสู่ระบบ -->
+      <a id="app-link" href="#" class="btn-main">
+        <i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ / ลงทะเบียน
+      </a>
+
+      <p class="footer-text">ระบบขับเคลื่อนด้วย Google Apps Script</p>
+
+    </div>
   </div>
 
   <script>
-    // 🔗 ใส่ลิงก์ Google Apps Script ของครูเคนตรงนี้ครับ
+    // ลิงก์ Apps Script ของครูเคน
     const rawScriptUrl = "script.google.com/macros/s/AKfycbxi5yrRjvrDQ64-9Z90kJ7mJXE_AU6d4t5lWY34FFl1_V7u_bwY7QNG9iEaw3b3kuQf/exec"; 
     const fullUrl = "https://" + rawScriptUrl;
 
@@ -77,20 +185,20 @@
 
     document.getElementById("app-link").href = fullUrl;
 
-    // ถ้าเปิดจาก Facebook App (ไม่ใช่ Messenger)
+    // เช็กพฤติกรรมแอป Facebook
     if (isFBApp && !isMessenger) {
       if (isIOS) {
-        // 🍎 iPhone/iPad: แสดงหน้าเตือนพร้อมลูกศรชี้จุด 3 จุด
+        // 🍎 กรณี iPhone บน FB: แสดงคำแนะนำชี้ไปมุมขวาบน
         document.getElementById("ios-notice").style.display = "block";
         document.getElementById("normal-notice").style.display = "none";
       } else if (isAndroid) {
-        // 🤖 Android: สั่ง Intent บังคับเปิด Chrome ทันที 100%
+        // 🤖 กรณี Android บน FB: สั่ง Intent บังคับเปิด Chrome ให้อัตโนมัติ
         window.location.href = "intent://" + rawScriptUrl + "#Intent;scheme=https;package=com.android.chrome;end";
       } else {
         window.location.href = fullUrl;
       }
     } else {
-      // 🌐 เปิดจาก Chrome, Safari หรือ Messenger ปกติ
+      // 🌐 กรณีเปิดจาก Safari, Chrome หรือ Messenger ปกติ
       window.location.href = fullUrl;
     }
   </script>
