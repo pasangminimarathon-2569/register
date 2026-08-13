@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>กำลังนำท่านเข้าสู่ระบบ...</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+      background: #f4f6f9;
+      color: #333;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .arrow-pointer {
+      font-size: 40px;
+      position: absolute;
+      top: -10px;
+      right: 15px;
+      animation: bounce 1s infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #007AFF;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- หน้าแสดงคำแนะนำเฉพาะ iOS (iPhone/iPad) บน Facebook App -->
+  <div class="card" id="ios-notice" style="display: none;">
+    <div class="arrow-pointer">↗️</div>
+    <h2 style="color: #007AFF; margin-top: 15px;">กรุณาเปิดใน Safari</h2>
+    <p>เนื่องจากระบบ Facebook บน iOS ไม่รองรับหน้าจอนี้</p>
+    <p style="font-size: 16px; font-weight: bold; color: #d9534f; line-height: 1.5;">
+      โปรดกดปุ่ม <b>...</b> ที่มุมขวาบนสุด<br>
+      แล้วเลือก <b>"เปิดใน Safari" (Open in Safari)</b>
+    </p>
+  </div>
+
+  <!-- หน้าโหลดปกติสำหรับ Android และเบราว์เซอร์ทั่วไป -->
+  <div class="card" id="normal-notice">
+    <h3>กำลังนำท่านเข้าสู่ระบบ...</h3>
+    <p>หากระบบไม่นำทางให้อัตโนมัติ กรุณากดปุ่มด้านล่าง</p>
+    <a id="app-link" href="#" class="btn">คลิกเข้าสู่ระบบที่นี่</a>
+  </div>
+
+  <script>
+    // 🔗 ใส่ลิงก์ Google Apps Script ของครูเคนตรงนี้ครับ
+    const rawScriptUrl = "script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; 
+    const fullUrl = "https://" + rawScriptUrl;
+
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isFBApp = (ua.indexOf("FBAN") > -1 || ua.indexOf("FBAV") > -1);
+    const isMessenger = (ua.indexOf("MESSENGER") > -1 || ua.indexOf("FB_IAB/MESSENGER") > -1);
+    const isIOS = (ua.indexOf("iPhone") > -1 || ua.indexOf("iPad") > -1);
+    const isAndroid = (ua.indexOf("Android") > -1);
+
+    document.getElementById("app-link").href = fullUrl;
+
+    // ถ้าเปิดจาก Facebook App (ไม่ใช่ Messenger)
+    if (isFBApp && !isMessenger) {
+      if (isIOS) {
+        // 🍎 iPhone/iPad: แสดงหน้าเตือนพร้อมลูกศรชี้จุด 3 จุด
+        document.getElementById("ios-notice").style.display = "block";
+        document.getElementById("normal-notice").style.display = "none";
+      } else if (isAndroid) {
+        // 🤖 Android: สั่ง Intent บังคับเปิด Chrome ทันที 100%
+        window.location.href = "intent://" + rawScriptUrl + "#Intent;scheme=https;package=com.android.chrome;end";
+      } else {
+        window.location.href = fullUrl;
+      }
+    } else {
+      // 🌐 เปิดจาก Chrome, Safari หรือ Messenger ปกติ
+      window.location.href = fullUrl;
+    }
+  </script>
+
+</body>
+</html>
